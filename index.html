@@ -92,6 +92,9 @@
     margin: 0 auto;
     padding: 20px 16px 120px;
   }
+  .container > * {
+    transition: opacity 0.15s ease, transform 0.15s ease;
+  }
 
   /* ===== PROGRESS ===== */
   .progress-wrap {
@@ -142,12 +145,21 @@
     box-shadow: var(--shadow);
     padding: 28px 24px;
     margin-bottom: 16px;
-    animation: slideUp 0.4s var(--transition);
     border: 1px solid rgba(0,0,0,0.04);
+    animation: fadeSlideIn 0.35s ease-out both;
   }
-  @keyframes slideUp {
-    from { opacity: 0; transform: translateY(16px); }
+  @keyframes fadeSlideIn {
+    from { opacity: 0; transform: translateY(12px); }
     to { opacity: 1; transform: translateY(0); }
+  }
+  .container.fade-out > * {
+    opacity: 0;
+    transform: translateY(-8px);
+    transition: opacity 0.15s ease-in, transform 0.15s ease-in;
+  }
+  .container.fade-in > * {
+    opacity: 1;
+    transform: translateY(0);
   }
 
   .question-title {
@@ -1298,7 +1310,7 @@ function renderQ(){
   }).join('');
   const opts=q.options.map(o=>{
     let sel=isM?(Array.isArray(cv)&&cv.includes(o.value)):cv===o.value;
-    return `<button class="opt ${isM?'multi':''} ${sel?'selected':''}" onclick="sel('${q.id}','${o.value}',${isM})"><span class="opt-radio"></span><span>${o.label}</span></button>`;
+    return `<button class="opt ${isM?'multi':''} ${sel?'selected':''}" data-value="${o.value}" onclick="sel('${q.id}','${o.value}',${isM})"><span class="opt-radio"></span><span>${o.label}</span></button>`;
   }).join('');
   const hint=q.hint?`<p class="question-hint">${q.hint}</p>`:'';
   const canNext=isM?(Array.isArray(cv)&&cv.length>0):cv!==undefined;
@@ -1324,14 +1336,45 @@ function sel(id,v,m){
     if(!Array.isArray(ans[id]))ans[id]=[];
     if(v==="none"){ans[id]=["none"];}
     else{ans[id]=ans[id].filter(x=>x!=="none");const i=ans[id].indexOf(v);if(i>=0)ans[id].splice(i,1);else ans[id].push(v);}
-    renderQ();
-  }else{ans[id]=v;setTimeout(()=>next(),180);}
+    // 복수선택: 버튼 상태만 업데이트 (전체 재렌더 안 함)
+    updateOptButtons(id,m);
+    updateNavButtons();
+  }else{
+    ans[id]=v;
+    // 단일선택: 선택된 버튼 하이라이트만 갱신
+    updateOptButtons(id,false);
+    setTimeout(()=>smoothNext(),200);
+  }
 }
-function back(){if(ci>0){ci--;vis=getVis();if(ci>=vis.length)ci=vis.length-1;renderQ();}}
+function updateOptButtons(id,m){
+  const cv=ans[id];
+  document.querySelectorAll('.opt').forEach(btn=>{
+    const val=btn.getAttribute('data-value');
+    if(!val)return;
+    const isSel=m?(Array.isArray(cv)&&cv.includes(val)):cv===val;
+    btn.classList.toggle('selected',isSel);
+  });
+}
+function updateNavButtons(){
+  const q=vis[ci],cv=ans[q.id],m=q.multi;
+  const canNext=m?(Array.isArray(cv)&&cv.length>0):cv!==undefined;
+  const nb=document.querySelector('.btn-next');
+  if(nb)nb.disabled=!canNext;
+}
+function smoothTransition(fn){
+  app.classList.add('fade-out');
+  setTimeout(()=>{fn();app.classList.remove('fade-out');},160);
+}
+function back(){if(ci>0){smoothTransition(()=>{ci--;vis=getVis();if(ci>=vis.length)ci=vis.length-1;renderQ();});}}
+function smoothNext(){
+  const q=vis[ci],cv=ans[q.id],m=q.multi;
+  if(m?!(Array.isArray(cv)&&cv.length>0):cv===undefined)return;
+  smoothTransition(()=>{ci++;vis=getVis();renderQ();});
+}
 function next(){
   const q=vis[ci],cv=ans[q.id],m=q.multi;
   if(m?!(Array.isArray(cv)&&cv.length>0):cv===undefined)return;
-  ci++;vis=getVis();renderQ();
+  smoothTransition(()=>{ci++;vis=getVis();renderQ();});
 }
 
 function renderResults(){
