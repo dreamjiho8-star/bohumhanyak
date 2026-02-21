@@ -1,0 +1,1420 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>보험한약 처방 도우미 | 56종 보험제제 추천</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #1a6b4a;
+    --primary-dark: #0f4d35;
+    --primary-light: #e8f5ee;
+    --accent: #b8860b;
+    --accent-light: #fef3d0;
+    --bg: #f7f8fa;
+    --card: #ffffff;
+    --text: #1e293b;
+    --text-muted: #64748b;
+    --text-light: #94a3b8;
+    --border: #e2e8f0;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+    --shadow: 0 4px 20px rgba(0,0,0,0.06);
+    --shadow-lg: 0 8px 40px rgba(0,0,0,0.1);
+    --radius: 16px;
+    --radius-sm: 10px;
+    --transition: 0.25s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ===== HEADER ===== */
+  .header {
+    background: linear-gradient(160deg, #0f4d35 0%, #1a6b4a 40%, #2d8f63 100%);
+    color: white;
+    padding: 32px 20px 28px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -60%;
+    right: -20%;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: -40%;
+    left: -10%;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header-inner { position: relative; z-index: 1; }
+  .header-icon {
+    font-size: 2rem;
+    margin-bottom: 8px;
+    display: block;
+  }
+  .header h1 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 4px;
+  }
+  .header p {
+    font-size: 0.82rem;
+    opacity: 0.75;
+    font-weight: 300;
+  }
+
+  /* ===== CONTAINER ===== */
+  .container {
+    max-width: 580px;
+    margin: 0 auto;
+    padding: 20px 16px 120px;
+  }
+
+  /* ===== PROGRESS ===== */
+  .progress-wrap {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0 4px;
+    margin-bottom: 20px;
+  }
+  .progress-dot {
+    flex: 1;
+    height: 4px;
+    background: #e2e8f0;
+    border-radius: 2px;
+    transition: background 0.4s ease;
+    position: relative;
+  }
+  .progress-dot.active {
+    background: var(--primary);
+  }
+  .progress-dot.done {
+    background: var(--primary);
+  }
+  .progress-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 4px;
+    margin-bottom: 16px;
+  }
+  .progress-step {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--primary);
+    background: var(--primary-light);
+    padding: 4px 12px;
+    border-radius: 20px;
+  }
+  .progress-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+  }
+
+  /* ===== CARD ===== */
+  .card {
+    background: var(--card);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 28px 24px;
+    margin-bottom: 16px;
+    animation: slideUp 0.4s var(--transition);
+    border: 1px solid rgba(0,0,0,0.04);
+  }
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .question-title {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+    line-height: 1.6;
+    letter-spacing: -0.01em;
+    color: var(--text);
+  }
+  .question-hint {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin-bottom: 18px;
+    line-height: 1.5;
+  }
+
+  /* ===== OPTIONS ===== */
+  .options { display: flex; flex-direction: column; gap: 8px; margin-top: 16px; }
+
+  .opt {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 16px;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: white;
+    cursor: pointer;
+    transition: all var(--transition);
+    font-size: 0.92rem;
+    color: var(--text);
+    width: 100%;
+    text-align: left;
+    line-height: 1.5;
+  }
+  .opt:hover {
+    border-color: #a7d5be;
+    background: #f8fcfa;
+  }
+  .opt:active { transform: scale(0.99); }
+  .opt.selected {
+    border-color: var(--primary);
+    background: var(--primary-light);
+    color: var(--primary-dark);
+    font-weight: 500;
+  }
+
+  .opt-radio {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #cbd5e1;
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition);
+  }
+  .opt.selected .opt-radio {
+    border-color: var(--primary);
+    background: var(--primary);
+  }
+  .opt.selected .opt-radio::after {
+    content: '';
+    width: 7px;
+    height: 7px;
+    background: white;
+    border-radius: 50%;
+  }
+
+  /* Checkbox (multi) */
+  .opt.multi .opt-radio { border-radius: 5px; }
+  .opt.multi.selected .opt-radio { border-radius: 5px; }
+  .opt.multi.selected .opt-radio::after {
+    content: '';
+    width: 10px;
+    height: 6px;
+    background: none;
+    border-radius: 0;
+    border-left: 2px solid white;
+    border-bottom: 2px solid white;
+    transform: rotate(-45deg) translateY(-1px);
+  }
+
+  /* ===== NAV ===== */
+  .nav-bar { display: flex; gap: 10px; margin-top: 20px; }
+  .nav-btn {
+    flex: 1;
+    padding: 14px;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition);
+    font-family: inherit;
+  }
+  .nav-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+  .btn-back {
+    background: #f1f5f9;
+    color: var(--text-muted);
+    flex: 0 0 80px;
+  }
+  .btn-back:hover:not(:disabled) { background: #e2e8f0; }
+  .btn-next {
+    background: var(--primary);
+    color: white;
+  }
+  .btn-next:hover:not(:disabled) {
+    background: var(--primary-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 14px rgba(26,107,74,0.3);
+  }
+
+  /* ===== INTRO ===== */
+  .intro { text-align: center; padding: 36px 20px 32px; }
+  .intro-icon { font-size: 3rem; margin-bottom: 16px; display: block; }
+  .intro h2 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: var(--text);
+    letter-spacing: -0.02em;
+  }
+  .intro p {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+  }
+  .intro .time-badge {
+    display: inline-block;
+    margin-top: 16px;
+    padding: 6px 16px;
+    background: #f1f5f9;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+  }
+  .start-btn {
+    display: block;
+    width: 100%;
+    margin-top: 24px;
+    padding: 16px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition);
+    font-family: inherit;
+  }
+  .start-btn:hover {
+    background: var(--primary-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 14px rgba(26,107,74,0.3);
+  }
+
+  /* ===== RESULTS ===== */
+  .result-card {
+    background: var(--card);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 24px;
+    margin-bottom: 14px;
+    animation: slideUp 0.4s ease;
+    animation-fill-mode: backwards;
+    border: 1px solid rgba(0,0,0,0.04);
+    position: relative;
+    overflow: hidden;
+  }
+  .result-card:nth-child(1) { animation-delay: 0s; }
+  .result-card:nth-child(2) { animation-delay: 0.1s; }
+  .result-card:nth-child(3) { animation-delay: 0.2s; }
+
+  .result-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+  }
+  .result-card.rank-1::before { background: linear-gradient(180deg, #f59e0b, #eab308); }
+  .result-card.rank-2::before { background: linear-gradient(180deg, #94a3b8, #cbd5e1); }
+  .result-card.rank-3::before { background: linear-gradient(180deg, #d97706, #f59e0b); }
+
+  .result-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 14px;
+  }
+  .result-rank {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    flex-shrink: 0;
+  }
+  .rank-1-badge { background: linear-gradient(135deg, #fef3c7, #fde68a); color: #92400e; }
+  .rank-2-badge { background: #f1f5f9; color: #475569; }
+  .rank-3-badge { background: #fff7ed; color: #9a3412; }
+
+  .result-name {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--primary-dark);
+    line-height: 1.3;
+  }
+  .result-category {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+  .result-desc {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin-bottom: 14px;
+  }
+  .result-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tag {
+    font-size: 0.72rem;
+    padding: 3px 10px;
+    border-radius: 6px;
+    background: var(--primary-light);
+    color: var(--primary);
+    font-weight: 500;
+  }
+  .tag-warn {
+    background: #fef2f2;
+    color: #dc2626;
+  }
+  .result-score {
+    font-size: 0.72rem;
+    color: var(--text-light);
+    margin-top: 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .score-bar {
+    flex: 1;
+    max-width: 80px;
+    height: 3px;
+    background: #e2e8f0;
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .score-fill {
+    height: 100%;
+    background: var(--primary);
+    border-radius: 2px;
+  }
+
+  .production-stopped {
+    display: inline-block;
+    background: #fef2f2;
+    color: #dc2626;
+    font-size: 0.68rem;
+    padding: 2px 8px;
+    border-radius: 6px;
+    margin-left: 6px;
+    font-weight: 500;
+  }
+
+  /* ===== SUMMARY ===== */
+  .summary {
+    background: var(--primary-light);
+    border-radius: var(--radius-sm);
+    padding: 16px 18px;
+    margin-bottom: 20px;
+    font-size: 0.82rem;
+    line-height: 1.8;
+    border: 1px solid #d1e7dd;
+  }
+  .summary dt {
+    font-weight: 400;
+    color: var(--text-muted);
+    display: inline;
+  }
+  .summary dd {
+    font-weight: 600;
+    color: var(--primary-dark);
+    display: inline;
+    margin-left: 0;
+  }
+  .summary-row { margin-bottom: 2px; }
+
+  .section-title {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 12px;
+    padding-left: 2px;
+  }
+
+  /* ===== DISCLAIMER ===== */
+  .disclaimer {
+    background: #fffbeb;
+    border: 1px solid #fde68a;
+    border-radius: var(--radius-sm);
+    padding: 16px 18px;
+    font-size: 0.78rem;
+    color: #92400e;
+    line-height: 1.7;
+    margin-top: 24px;
+  }
+  .disclaimer strong { color: #78350f; }
+
+  /* ===== REFERENCES ===== */
+  .references {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 18px;
+    margin-top: 14px;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    line-height: 1.8;
+  }
+  .references summary {
+    font-weight: 600;
+    font-size: 0.8rem;
+    color: var(--text);
+    cursor: pointer;
+    padding: 2px 0;
+  }
+  .references ol {
+    margin-top: 10px;
+    padding-left: 18px;
+  }
+  .references li {
+    margin-bottom: 8px;
+  }
+  .references a {
+    color: var(--primary);
+    text-decoration: none;
+  }
+  .references a:hover { text-decoration: underline; }
+
+  /* ===== RESTART ===== */
+  .restart-btn {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    margin-top: 16px;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: white;
+    color: var(--text-muted);
+    font-size: 0.92rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--transition);
+    font-family: inherit;
+  }
+  .restart-btn:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+    background: var(--primary-light);
+  }
+
+  @media (max-width: 480px) {
+    .header { padding: 24px 16px 22px; }
+    .header h1 { font-size: 1.25rem; }
+    .container { padding: 16px 12px 100px; }
+    .card { padding: 22px 18px; }
+    .opt { padding: 12px 14px; font-size: 0.88rem; }
+    .result-card { padding: 20px 18px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <span class="header-icon">&#x1F33F;</span>
+    <h1>보험한약 처방 도우미</h1>
+    <p>건강보험 혼합엑스산제 56종 기반 처방 추천</p>
+  </div>
+</div>
+
+<div class="container" id="app"></div>
+
+<script>
+// ==========================================
+// 56종 처방 데이터베이스
+// ==========================================
+const PRESCRIPTIONS = [
+  {
+    name: "가미소요산",
+    category: "신경정신 / 부인과",
+    desc: "체질이 허약한 여성으로 어깨가 결리며 피로하기 쉽고, 정신불안 등 정신신경증상이 있는 경우에 사용합니다. 냉증, 허약체질, 월경불순, 월경곤란, 갱년기장애에 적합합니다. (출전: 내과적요)",
+    tags: ["스트레스", "우울", "불면", "월경불순", "갱년기"],
+    systems: ["neuropsych", "gynecology"],
+    symptoms: ["insomnia_difficulty", "anxiety", "depression", "menstrual", "menopause"],
+    temperature: "heat",
+    strength: "deficiency",
+    onset: ["chronic"],
+    aggravating: ["stress"],
+    accompanying: ["dry_mouth", "eye_red", "menstrual_issue", "night_sweats"],
+    score_boost: 1
+  },
+  {
+    name: "갈근탕",
+    category: "호흡기 / 근골격계",
+    desc: "감기 초기에 오한, 발열, 두통, 항강(뒷목 뻣뻣함), 체통이 있으며 땀이 나지 않는 증상에 사용합니다. 코감기, 두드러기에도 활용됩니다. (출전: 상한론)",
+    tags: ["감기초기", "오한", "두통", "항강", "어깨결림"],
+    systems: ["respiratory", "musculoskeletal"],
+    symptoms: ["cold_sudden", "chills_no_sweat", "neck_stiffness"],
+    temperature: "cold",
+    strength: "excess",
+    onset: ["acute"],
+    aggravating: ["cold_wind"],
+    accompanying: ["cold_hands_feet"],
+    score_boost: 0
+  },
+  {
+    name: "갈근해기탕",
+    category: "호흡기",
+    desc: "감기로 인한 두통, 발열과 함께 기침이 동반될 때 사용합니다. 갈근탕에 기침·가래 치료 약재가 추가된 처방입니다.",
+    tags: ["감기", "두통", "기침", "발열"],
+    systems: ["respiratory"],
+    symptoms: ["cold_sudden", "chills_no_sweat", "cough_phlegm"],
+    temperature: "cold",
+    strength: "excess",
+    onset: ["acute"],
+    aggravating: ["cold_wind"],
+    accompanying: ["phlegm"],
+    score_boost: 0
+  },
+  {
+    name: "구미강활탕",
+    category: "호흡기 / 근골격",
+    desc: "감기로 인한 오한, 발열, 두통과 함께 전신 관절통(몸살)이 심할 때 사용합니다.",
+    tags: ["감기", "몸살", "관절통", "두통"],
+    systems: ["respiratory", "musculoskeletal"],
+    symptoms: ["cold_sudden", "chills_no_sweat", "body_ache"],
+    temperature: "cold",
+    strength: "excess",
+    onset: ["acute"],
+    aggravating: ["cold_wind"],
+    accompanying: [],
+    score_boost: 0
+  },
+  {
+    name: "궁소산",
+    category: "산부인과",
+    desc: "임신 중 감기에 걸렸을 때 사용합니다. 임산부도 안전하게 복용 가능한 감기 처방입니다.",
+    tags: ["임신", "감기", "두통"],
+    systems: ["gynecology", "respiratory"],
+    symptoms: ["pregnancy_cold"],
+    temperature: "neutral",
+    strength: "neutral",
+    onset: ["acute"],
+    aggravating: [],
+    accompanying: [],
+    special: "pregnancy",
+    score_boost: 0
+  },
+  {
+    name: "궁하탕",
+    category: "산부인과",
+    desc: "월경통, 월경불순에 사용합니다. 어혈(瘀血)로 인한 월경 관련 통증에 효과적입니다.",
+    tags: ["월경통", "월경불순", "어혈"],
+    systems: ["gynecology"],
+    symptoms: ["menstrual"],
+    temperature: "cold",
+    strength: "neutral",
+    onset: ["chronic"],
+    aggravating: [],
+    accompanying: ["menstrual_issue"],
+    score_boost: 0
+  },
+  {
+    name: "내소산",
+    category: "소화기",
+    desc: "과식이나 식적으로 인한 소화불량에 사용합니다. 급성 식체에 활용됩니다.",
+    tags: ["식체", "소화불량", "과식"],
+    systems: ["digestive"],
+    symptoms: ["indigestion", "overeating"],
+    temperature: "neutral",
+    strength: "excess",
+    onset: ["acute"],
+    aggravating: ["overeating"],
+    accompanying: [],
+    score_boost: 0
+  },
+  {
+    name: "당귀연교음",
+    category: "피부 / 부인과",
+    desc: "피부 질환(여드름, 습진)과 대하(냉)에 사용합니다. 혈열(血熱)을 다스려 피부를 맑게 합니다.",
+    tags: ["여드름", "피부염", "대하"],
+    systems: ["skin", "gynecology"],
+    symptoms: ["skin_rash", "vaginal_discharge"],
+    temperature: "heat",
+    strength: "neutral",
+    onset: ["chronic"],
+    aggravating: [],
+    accompanying: ["skin_rash"],
+    score_boost: 0
+  },
+  {
+    name: "당귀육황탕", category: "보익",
+    desc: "식은땀(도한)이 심하고, 음허(陰虛)로 인한 허열이 있을 때 사용합니다.",
+    tags: ["도한", "식은땀", "음허"],
+    systems: ["general"], symptoms: ["night_sweats"],
+    temperature: "heat", strength: "deficiency", onset: ["chronic"],
+    aggravating: [], accompanying: ["night_sweats"],
+    stopped: true, score_boost: -5
+  },
+  {
+    name: "대시호탕", category: "소화기",
+    desc: "체격이 좋은 실증(實證) 환자의 흉협고만(옆구리 답답함), 변비, 구역에 사용합니다.",
+    tags: ["변비", "흉협고만", "실증"],
+    systems: ["digestive"], symptoms: ["constipation", "epigastric"],
+    temperature: "heat", strength: "excess", onset: ["subacute", "chronic"],
+    aggravating: [], accompanying: ["dry_mouth"], score_boost: 0
+  },
+  {
+    name: "대청룡탕", category: "호흡기",
+    desc: "심한 오한과 고열이 동반된 감기에 사용합니다. 강력한 발한 처방입니다.",
+    tags: ["감기", "고열", "오한", "무한"],
+    systems: ["respiratory"], symptoms: ["cold_sudden", "chills_no_sweat"],
+    temperature: "cold", strength: "excess", onset: ["acute"],
+    aggravating: ["cold_wind"], accompanying: [],
+    stopped: true, score_boost: -5
+  },
+  {
+    name: "대화중음", category: "소화기",
+    desc: "위장이 차갑고 허약하여 생기는 복통에 사용합니다. 비위허한(脾胃虛寒)을 따뜻하게 보합니다.",
+    tags: ["복통", "위장냉증", "허한"],
+    systems: ["digestive"], symptoms: ["abdominal_pain"],
+    temperature: "cold", strength: "deficiency", onset: ["chronic"],
+    aggravating: ["cold_wind"], accompanying: ["cold_hands_feet"], score_boost: 0
+  },
+  {
+    name: "대황목단피탕", category: "소화기 / 외과",
+    desc: "하복부 통증과 변비, 열증에 사용합니다. 습열(濕熱)을 제거합니다.",
+    tags: ["하복통", "변비", "열증"],
+    systems: ["digestive"], symptoms: ["abdominal_pain", "constipation"],
+    temperature: "heat", strength: "excess", onset: ["acute"],
+    aggravating: ["heat"], accompanying: [], score_boost: 0
+  },
+  {
+    name: "도인승기탕", category: "소화기 / 부인과",
+    desc: "어혈(瘀血)로 인한 하복부 통증과 변비에 사용합니다.",
+    tags: ["어혈", "하복통", "변비"],
+    systems: ["digestive", "gynecology"], symptoms: ["constipation", "abdominal_pain", "blood_stasis"],
+    temperature: "heat", strength: "excess", onset: ["subacute"],
+    aggravating: [], accompanying: ["menstrual_issue"], score_boost: 0
+  },
+  {
+    name: "반하백출천마탕", category: "신경정신",
+    desc: "어지러움(현훈), 두통, 구역감에 사용합니다. 담음(痰飮)으로 인한 두훈에 효과적입니다.",
+    tags: ["어지러움", "두통", "구역", "담음"],
+    systems: ["neuropsych"], symptoms: ["dizziness", "headache"],
+    temperature: "cold", strength: "deficiency", onset: ["chronic"],
+    aggravating: [], accompanying: ["phlegm"], score_boost: 0
+  },
+  {
+    name: "반하사심탕", category: "소화기",
+    desc: "명치가 갑갑하고, 오심·구토, 식욕부진, 복명(배에서 소리), 연변·설사 경향에 사용합니다. 급만성위장염, 소화불량, 신경성위염, 숙취, 트림, 속쓰림, 구내염에 적합합니다. (출전: 상한론)",
+    tags: ["명치답답", "구역", "설사", "복명", "속쓰림"],
+    systems: ["digestive"], symptoms: ["nausea", "epigastric", "diarrhea_constipation", "heartburn"],
+    temperature: "neutral", strength: "neutral", onset: ["subacute", "chronic"],
+    aggravating: ["stress"], accompanying: [], score_boost: 0
+  },
+  {
+    name: "반하후박탕", category: "소화기 / 신경정신",
+    desc: "목에 무언가 걸린 듯한 이물감(매핵기), 구역감, 기울(氣鬱)에 사용합니다.",
+    tags: ["매핵기", "인후이물감", "구역", "기울"],
+    systems: ["digestive", "neuropsych"], symptoms: ["nausea", "throat_discomfort"],
+    temperature: "neutral", strength: "neutral", onset: ["chronic"],
+    aggravating: ["stress"], accompanying: [], score_boost: 0
+  },
+  {
+    name: "백출탕", category: "산부인과",
+    desc: "임신 중 구토(입덧)에 사용합니다. 임신오저(妊娠惡阻)의 대표적 처방입니다.",
+    tags: ["임신구토", "입덧"],
+    systems: ["gynecology"], symptoms: ["pregnancy_nausea"],
+    temperature: "neutral", strength: "deficiency", onset: ["acute", "subacute"],
+    aggravating: [], accompanying: [], special: "pregnancy",
+    stopped: true, score_boost: -5
+  },
+  {
+    name: "보중익기탕", category: "보익 / 소화기",
+    desc: "원기가 없고 위장 기능이 쇠약해져 피로하기 쉬운 증상에 사용합니다. 허약체질, 피로권태, 병후쇠약, 식욕부진, 도한에 적합합니다. (출전: 비위론)",
+    tags: ["만성피로", "기력저하", "식욕부진", "기허"],
+    systems: ["general", "digestive"], symptoms: ["fatigue", "poor_appetite"],
+    temperature: "neutral", strength: "deficiency", onset: ["chronic"],
+    aggravating: [], accompanying: ["night_sweats"], score_boost: 2
+  },
+  {
+    name: "보허탕", category: "보익 / 산부인과",
+    desc: "산후 허약, 만성 허약 체질에 사용합니다. 기혈을 크게 보하는 처방입니다.",
+    tags: ["산후허약", "허약체질", "기혈부족"],
+    systems: ["general", "gynecology"], symptoms: ["fatigue", "postpartum"],
+    temperature: "neutral", strength: "deficiency", onset: ["chronic"],
+    aggravating: [], accompanying: [],
+    stopped: true, score_boost: -5
+  },
+  {
+    name: "복령보심탕", category: "신경정신",
+    desc: "불면증, 가슴 두근거림(심계항진), 불안감에 사용합니다. 심혈부족(心血不足)을 보하여 마음을 안정시킵니다.",
+    tags: ["불면", "심계항진", "불안"],
+    systems: ["neuropsych"], symptoms: ["insomnia_waking", "anxiety", "palpitation"],
+    temperature: "neutral", strength: "deficiency", onset: ["chronic"],
+    aggravating: ["stress"], accompanying: ["palpitation"], score_boost: 0
+  },
+  {
+    name: "불환금정기산", category: "소화기",
+    desc: "급성 구토, 설사, 식중독에 사용합니다. 급성 위장염에 활용됩니다.",
+    tags: ["구토", "설사", "식중독", "급성위장염"],
+    systems: ["digestive"], symptoms: ["nausea", "diarrhea", "overeating"],
+    temperature: "cold", strength: "excess", onset: ["acute"],
+    aggravating: ["overeating"], accompanying: [], score_boost: 0
+  },
+  {
+    name: "삼소음", category: "호흡기",
+    desc: "기력이 약한 사람의 감기에 사용합니다. 기침, 가래와 함께 피로감이 동반될 때 적합합니다.",
+    tags: ["허약자감기", "기침", "가래", "피로"],
+    systems: ["respiratory"], symptoms: ["cold_sudden", "cough_phlegm", "chills_with_sweat"],
+    temperature: "cold", strength: "deficiency", onset: ["acute"],
+    aggravating: ["cold_wind"], accompanying: ["phlegm"], score_boost: 0
+  },
+  {
+    name: "삼출건비탕", category: "소화기",
+    desc: "만성 소화불량, 식욕부진, 무른 변에 사용합니다. 비위(脾胃)가 허약한 분에게 적합합니다.",
+    tags: ["만성소화불량", "식욕부진", "설사"],
+    systems: ["digestive"], symptoms: ["indigestion", "diarrhea", "poor_appetite"],
+    temperature: "cold", strength: "deficiency", onset: ["chronic"],
+    aggravating: [], accompanying: [], score_boost: 0
+  },
+  {
+    name: "삼호작약탕", category: "소화기 / 신경정신",
+    desc: "복통, 옆구리 통증에 사용합니다. 기울(氣鬱)로 인한 복부 불편에 적합합니다.",
+    tags: ["복통", "옆구리통", "기울"],
+    systems: ["digestive", "neuropsych"], symptoms: ["abdominal_pain", "epigastric"],
+    temperature: "neutral", strength: "neutral", onset: ["subacute"],
+    aggravating: ["stress"], accompanying: [],
+    stopped: true, score_boost: -5
+  },
+  {
+    name: "삼황사심탕", category: "신경정신 / 순환기",
+    desc: "안면홍조, 충혈, 코피, 불면에 사용합니다. 상부의 열을 내려주는 효과가 있습니다.",
+    tags: ["안면홍조", "코피", "불면", "열상충"],
+    systems: ["neuropsych", "cardiovascular"], symptoms: ["insomnia_difficulty", "hypertension"],
+    temperature: "heat", strength: "excess", onset: ["chronic"],
+    aggravating: [], accompanying: ["eye_red", "dry_mouth"], score_boost: 0
+  },
+  {
+    name: "생맥산", category: "호흡기 / 보익",
+    desc: "마른 기침, 입 마름, 기력저하에 사용합니다. 음허(陰虛)로 폐가 건조할 때 적합합니다.",
+    tags: ["마른기침", "구건", "기력저하", "음허"],
+    systems: ["respiratory", "general"], symptoms: ["dry_cough"],
+    temperature: "heat", strength: "deficiency", onset: ["chronic"],
+    aggravating: ["heat"], accompanying: ["dry_mouth", "night_sweats"], score_boost: 0
+  },
+  {
+    name: "소시호탕", category: "소화기 / 호흡기",
+    desc: "상복부 팽만감, 설태, 입속 불쾌감, 식욕부진, 미열, 오심 등이 있을 때 사용합니다. 급성열성질환, 폐렴, 기관지염, 감기, 림프염, 만성위장장애에 적합합니다. (출전: 상한론)",
+    tags: ["왕래한열", "흉협고만", "구역", "식욕부진"],
+    systems: ["digestive", "respiratory"], symptoms: ["epigastric", "lingering_cold"],
+    temperature: "neutral", strength: "neutral", onset: ["subacute"],
+    aggravating: [], accompanying: ["dry_mouth"], score_boost: 0
+  },
+  {
+    name: "소청룡탕", category: "호흡기",
+    desc: "기관지염, 기관지천식, 콧물, 묽은 가래를 수반하는 기침, 비염에 사용합니다. (출전: 상한론)",
+    tags: ["콧물", "재채기", "묽은가래", "비염"],
+    systems: ["respiratory"], symptoms: ["nasal", "cough_phlegm", "chills_with_sweat"],
+    temperature: "cold", strength: "neutral", onset: ["acute", "chronic"],
+    aggravating: ["cold_wind"], accompanying: ["phlegm"], score_boost: 0
+  },
+  {
+    name: "승양보위탕", category: "소화기 / 보익",
+    desc: "비위(脾胃)가 허약하여 만성 설사가 반복될 때 사용합니다.",
+    tags: ["만성설사", "비위허약"],
+    systems: ["digestive"], symptoms: ["diarrhea", "poor_appetite"],
+    temperature: "cold", strength: "deficiency", onset: ["chronic"],
+    aggravating: [], accompanying: ["cold_hands_feet"], score_boost: 0
+  },
+  {
+    name: "시경반하탕", category: "호흡기",
+    desc: "기침, 가래에 사용합니다. 담음(痰飮)으로 인한 해수에 적합합니다.",
+    tags: ["기침", "가래", "담음"],
+    systems: ["respiratory"], symptoms: ["cough_phlegm"],
+    temperature: "neutral", strength: "neutral", onset: ["subacute"],
+    aggravating: [], accompanying: ["phlegm"], score_boost: 0
+  },
+  {
+    name: "시호계지탕", category: "호흡기 / 소화기",
+    desc: "감기가 오래되어 미열, 옆구리 답답함, 복통이 있을 때 사용합니다.",
+    tags: ["감기후기", "미열", "복통", "흉협고만"],
+    systems: ["respiratory", "digestive"], symptoms: ["lingering_cold", "abdominal_pain"],
+    temperature: "neutral", strength: "neutral", onset: ["subacute"],
+    aggravating: [], accompanying: [], score_boost: 0
+  },
+  {
+    name: "시호소간탕", category: "신경정신 / 소화기",
+    desc: "스트레스로 인한 흉협통(옆구리 통증), 복부 불편에 사용합니다.",
+    tags: ["스트레스", "옆구리통", "기울"],
+    systems: ["neuropsych", "digestive"], symptoms: ["epigastric", "anxiety"],
+    temperature: "neutral", strength: "neutral", onset: ["chronic"],
+    aggravating: ["stress"], accompanying: [],
+    stopped: true, score_boost: -5
+  },
+  {
+    name: "시호청간탕", category: "호흡기 / 소아",
+    desc: "편도선염, 임파선 종대, 소아 반복 발열에 사용합니다.",
+    tags: ["편도선염", "임파선", "소아발열"],
+    systems: ["respiratory"], symptoms: ["sore_throat"],
+    temperature: "heat", strength: "excess", onset: ["acute", "subacute"],
+    aggravating: [], accompanying: ["eye_red"],
+    special: "pediatric", score_boost: 0
+  },
+  {
+    name: "안태음", category: "산부인과",
+    desc: "임신 안정, 유산 예방에 사용합니다.",
+    tags: ["임신안정", "유산예방"],
+    systems: ["gynecology"], symptoms: ["pregnancy_stability"],
+    temperature: "neutral", strength: "deficiency", onset: ["chronic"],
+    aggravating: [], accompanying: [], special: "pregnancy",
+    stopped: true, score_boost: -5
+  },
+  {
+    name: "연교패독산", category: "호흡기 / 피부",
+    desc: "감기 초기 인후통, 발열과 피부 종기·부스럼에 사용합니다.",
+    tags: ["인후통", "발열", "종기", "열독"],
+    systems: ["respiratory", "skin"], symptoms: ["cold_sudden", "sore_throat", "fever_sore_throat"],
+    temperature: "heat", strength: "excess", onset: ["acute"],
+    aggravating: ["heat"], accompanying: ["skin_rash"], score_boost: 0
+  },
+  {
+    name: "오림산", category: "비뇨기",
+    desc: "소변 볼 때 통증, 빈뇨, 잔뇨감 등 요로 증상에 사용합니다.",
+    tags: ["배뇨통", "빈뇨", "요로감염"],
+    systems: ["urinary"], symptoms: ["dysuria"],
+    temperature: "heat", strength: "excess", onset: ["acute"],
+    aggravating: [], accompanying: ["dark_urine"], score_boost: 0
+  },
+  {
+    name: "오적산", category: "근골격 / 호흡기",
+    desc: "만성이면서 증상이 심하지 않은 위장염, 허리통증, 신경통, 관절통, 월경통, 두통, 냉증, 갱년기장애, 감기에 사용합니다. 보험한약 중 청구량 1위(42.3%) 처방입니다. (출전: 화제국방)",
+    tags: ["냉증통증", "감기", "복통", "근골격통"],
+    systems: ["musculoskeletal", "respiratory", "digestive", "gynecology"], symptoms: ["cold_sudden", "body_ache", "abdominal_pain", "menstrual", "menopause"],
+    temperature: "cold", strength: "neutral", onset: ["acute", "chronic"],
+    aggravating: ["cold_wind"], accompanying: ["cold_hands_feet", "phlegm"], score_boost: 2
+  },
+  {
+    name: "이중탕", category: "소화기",
+    desc: "만성 설사, 복통, 손발 냉증에 사용합니다. 비위허한(脾胃虛寒)의 대표 처방입니다.",
+    tags: ["만성설사", "복통", "수족냉", "한증"],
+    systems: ["digestive"], symptoms: ["diarrhea", "abdominal_pain"],
+    temperature: "cold", strength: "deficiency", onset: ["chronic"],
+    aggravating: ["cold_wind"], accompanying: ["cold_hands_feet"], score_boost: 0
+  },
+  {
+    name: "이진탕", category: "호흡기 / 소화기",
+    desc: "가래가 많고 구역감이 있을 때 사용합니다. 담음(痰飮)의 기본 처방입니다.",
+    tags: ["가래", "구역", "담음"],
+    systems: ["respiratory", "digestive"], symptoms: ["cough_phlegm", "nausea"],
+    temperature: "cold", strength: "neutral", onset: ["subacute"],
+    aggravating: [], accompanying: ["phlegm"], score_boost: 0
+  },
+  {
+    name: "익위승양탕", category: "소화기 / 보익",
+    desc: "비위(脾胃) 허약으로 인한 식욕부진, 소화불량에 사용합니다.",
+    tags: ["식욕부진", "비위허약", "소화불량"],
+    systems: ["digestive"], symptoms: ["indigestion", "poor_appetite"],
+    temperature: "cold", strength: "deficiency", onset: ["chronic"],
+    aggravating: [], accompanying: [], score_boost: 0
+  },
+  {
+    name: "인삼패독산", category: "호흡기",
+    desc: "기력이 약한 사람의 감기에 사용합니다. 오한, 발열, 두통, 기침 증상에 적합합니다.",
+    tags: ["허약자감기", "오한", "발열", "기침"],
+    systems: ["respiratory"], symptoms: ["cold_sudden", "chills_no_sweat"],
+    temperature: "cold", strength: "deficiency", onset: ["acute"],
+    aggravating: ["cold_wind"], accompanying: [], score_boost: 0
+  },
+  {
+    name: "인진호탕", category: "소화기 / 간담",
+    desc: "황달, 간담도 질환에 사용합니다. 습열(濕熱)을 제거하여 황달을 치료합니다.",
+    tags: ["황달", "간질환", "습열"],
+    systems: ["digestive"], symptoms: ["jaundice"],
+    temperature: "heat", strength: "excess", onset: ["subacute"],
+    aggravating: [], accompanying: ["dark_urine"],
+    stopped: true, score_boost: -5
+  },
+  {
+    name: "자음강화탕", category: "보익 / 호흡기",
+    desc: "음허(陰虛)로 인한 미열, 도한(식은땀), 마른기침, 입마름에 사용합니다.",
+    tags: ["음허", "미열", "도한", "마른기침"],
+    systems: ["general", "respiratory"], symptoms: ["dry_cough", "night_sweats"],
+    temperature: "heat", strength: "deficiency", onset: ["chronic"],
+    aggravating: ["heat"], accompanying: ["dry_mouth", "night_sweats"], score_boost: 0
+  },
+  {
+    name: "조위승기탕", category: "소화기",
+    desc: "변비, 복부 팽만감에 사용합니다. 위장의 열을 내리고 통변(通便)시킵니다.",
+    tags: ["변비", "복부팽만", "열증"],
+    systems: ["digestive"], symptoms: ["constipation"],
+    temperature: "heat", strength: "excess", onset: ["acute", "subacute"],
+    aggravating: [], accompanying: ["dry_mouth"], score_boost: 0
+  },
+  {
+    name: "청상견통탕", category: "신경정신",
+    desc: "심한 두통(편두통, 전두통)에 사용합니다. 풍열(風熱)로 인한 두통에 효과적입니다.",
+    tags: ["두통", "편두통", "전두통"],
+    systems: ["neuropsych"], symptoms: ["headache"],
+    temperature: "heat", strength: "excess", onset: ["acute", "chronic"],
+    aggravating: [], accompanying: ["eye_red"], score_boost: 0
+  },
+  {
+    name: "청서익기탕", category: "보익",
+    desc: "여름철 더위로 인한 피로, 식욕부진, 무기력에 사용합니다.",
+    tags: ["더위", "여름피로", "식욕부진"],
+    systems: ["general"], symptoms: ["fatigue", "summer_heat"],
+    temperature: "heat", strength: "deficiency", onset: ["acute", "subacute"],
+    aggravating: ["heat"], accompanying: ["dry_mouth"], score_boost: 0
+  },
+  {
+    name: "청위산", category: "소화기 / 치과",
+    desc: "치통, 구내염, 잇몸 부종에 사용합니다. 위열(胃熱)을 식혀줍니다.",
+    tags: ["치통", "구내염", "잇몸부종"],
+    systems: ["digestive"], symptoms: ["mouth_sore"],
+    temperature: "heat", strength: "excess", onset: ["acute"],
+    aggravating: [], accompanying: ["dry_mouth"], score_boost: 0
+  },
+  {
+    name: "팔물탕", category: "보익 / 부인과",
+    desc: "기혈양허(氣血兩虛)로 인한 피로, 안색 창백, 어지러움에 사용합니다. 산후쇠약, 빈혈에도 적합합니다.",
+    tags: ["기혈부족", "빈혈", "피로", "창백", "산후"],
+    systems: ["general", "gynecology"], symptoms: ["fatigue", "dizziness", "postpartum"],
+    temperature: "neutral", strength: "deficiency", onset: ["chronic"],
+    aggravating: [], accompanying: [], score_boost: 0
+  },
+  {
+    name: "평위산", category: "소화기",
+    desc: "소화불량, 복부팽만, 식욕부진에 사용합니다. 비위(脾胃) 습체를 풀어주는 기본 처방입니다.",
+    tags: ["소화불량", "더부룩", "식욕부진"],
+    systems: ["digestive"], symptoms: ["indigestion", "poor_appetite"],
+    temperature: "neutral", strength: "neutral", onset: ["subacute", "chronic"],
+    aggravating: [], accompanying: [], score_boost: 0
+  },
+  {
+    name: "행소탕(산)", category: "호흡기",
+    desc: "기침, 가래, 천식 증상에 사용합니다.",
+    tags: ["기침", "가래", "천식"],
+    systems: ["respiratory"], symptoms: ["cough_phlegm"],
+    temperature: "neutral", strength: "neutral", onset: ["subacute"],
+    aggravating: [], accompanying: ["phlegm"], score_boost: 0
+  },
+  {
+    name: "향사평위산", category: "소화기",
+    desc: "소화불량에 구역, 설사가 동반될 때 사용합니다. 평위산에 방향성 약재를 가미한 처방입니다.",
+    tags: ["소화불량", "구역", "설사"],
+    systems: ["digestive"], symptoms: ["indigestion", "nausea", "diarrhea"],
+    temperature: "cold", strength: "neutral", onset: ["acute", "subacute"],
+    aggravating: ["overeating"], accompanying: [], score_boost: 0
+  },
+  {
+    name: "황금작약탕", category: "소화기",
+    desc: "급성 설사, 복통, 이급후중에 사용합니다. 습열성 설사에 적합합니다.",
+    tags: ["설사", "복통", "이급후중", "습열"],
+    systems: ["digestive"], symptoms: ["diarrhea", "abdominal_pain"],
+    temperature: "heat", strength: "excess", onset: ["acute"],
+    aggravating: [], accompanying: [],
+    stopped: true, score_boost: -5
+  },
+  {
+    name: "황련해독탕", category: "피부 / 소화기",
+    desc: "열증(熱證)에 의한 구내염, 피부염, 출혈(코피, 잇몸출혈 등)에 사용합니다.",
+    tags: ["열증", "구내염", "피부염", "출혈"],
+    systems: ["skin", "digestive"], symptoms: ["skin_rash", "mouth_sore"],
+    temperature: "heat", strength: "excess", onset: ["acute"],
+    aggravating: ["heat"], accompanying: ["eye_red", "dry_mouth", "skin_rash"], score_boost: 0
+  },
+  {
+    name: "형개연교탕", category: "호흡기 / 피부",
+    desc: "비염, 축농증, 인후통, 편도선염에 사용합니다. 이비인후과 질환의 대표 처방입니다.",
+    tags: ["비염", "축농증", "인후통", "편도선"],
+    systems: ["respiratory", "skin"], symptoms: ["nasal", "sore_throat"],
+    temperature: "heat", strength: "neutral", onset: ["subacute", "chronic"],
+    aggravating: [], accompanying: ["skin_rash"], score_boost: 0
+  },
+  {
+    name: "회춘양격산", category: "호흡기 / 소화기",
+    desc: "인후통, 구내염에 변비가 동반될 때 사용합니다.",
+    tags: ["인후통", "구내염", "변비", "열증"],
+    systems: ["respiratory", "digestive"], symptoms: ["sore_throat", "mouth_sore", "constipation"],
+    temperature: "heat", strength: "excess", onset: ["acute"],
+    aggravating: ["heat"], accompanying: ["dry_mouth"],
+    stopped: true, score_boost: -5
+  }
+];
+
+// ==========================================
+// 질문 정의
+// ==========================================
+const STEPS = [
+  { id:"gender", step:1, label:"기본 정보", title:"성별을 선택해주세요.", multi:false,
+    options:[{label:"남성",value:"male"},{label:"여성",value:"female"}]},
+  { id:"age", step:1, label:"기본 정보", title:"연령대를 선택해주세요.", multi:false,
+    options:[{label:"소아 (0~12세)",value:"child"},{label:"청소년 (13~18세)",value:"teen"},{label:"성인 (19~64세)",value:"adult"},{label:"고령 (65세 이상)",value:"elderly"}]},
+  { id:"pregnancy", step:1, label:"기본 정보", title:"현재 임신 중이신가요?", multi:false,
+    condition:a=>a.gender==="female"&&a.age!=="child",
+    options:[{label:"네, 임신 중입니다",value:"yes"},{label:"아니요",value:"no"}]},
+  { id:"body_type", step:1, label:"기본 정보", title:"체형은 어떤 편인가요?", multi:false,
+    options:[{label:"마른 편",value:"thin"},{label:"보통",value:"normal"},{label:"비만 편",value:"obese"}]},
+  { id:"main_system", step:2, label:"주요 증상", title:"가장 불편한 주요 증상은 어느 부위인가요?", multi:false,
+    options:[
+      {label:"호흡기 (감기, 기침, 코막힘, 인후통)",value:"respiratory"},
+      {label:"소화기 (복통, 소화불량, 구역, 설사, 변비)",value:"digestive"},
+      {label:"근골격계 (요통, 관절통, 근육통)",value:"musculoskeletal"},
+      {label:"신경/정신 (두통, 어지러움, 불면, 불안)",value:"neuropsych"},
+      {label:"비뇨생식기 (소변이상, 월경불순)",value:"urogenital"},
+      {label:"피부 (발진, 가려움, 종기)",value:"skin"},
+      {label:"산부인과 (임신 관련 증상)",value:"gynecology"},
+      {label:"전신 증상 (만성피로, 기력저하, 발열)",value:"general"}
+    ]},
+  { id:"resp_detail", step:3, label:"세부 증상", title:"호흡기 증상을 더 구체적으로 선택해주세요.", multi:false,
+    condition:a=>a.main_system==="respiratory",
+    options:[{label:"갑자기 시작된 감기 (오한, 발열, 두통, 몸살)",value:"cold_sudden"},{label:"기침·가래가 주 증상",value:"cough_phlegm"},{label:"코막힘·콧물·재채기 (비염 증상)",value:"nasal"},{label:"인후통·편도 부종",value:"sore_throat"},{label:"마른 기침 (가래 없이)",value:"dry_cough"}]},
+  { id:"cold_type", step:3, label:"세부 증상", title:"감기 증상의 양상은?", multi:false,
+    condition:a=>a.main_system==="respiratory"&&a.resp_detail==="cold_sudden",
+    options:[{label:"오한이 심하고 땀이 안 남",value:"chills_no_sweat"},{label:"오한과 함께 땀이 남",value:"chills_with_sweat"},{label:"열감이 주되고 인후통 동반",value:"fever_sore_throat"},{label:"감기가 오래되어 낫지 않음",value:"lingering"}]},
+  { id:"dig_detail", step:3, label:"세부 증상", title:"소화기 증상을 더 구체적으로 선택해주세요.", multi:false,
+    condition:a=>a.main_system==="digestive",
+    options:[{label:"식욕 없고 더부룩함 (식후 팽만)",value:"indigestion"},{label:"구역·구토",value:"nausea"},{label:"설사 또는 무른 변",value:"diarrhea"},{label:"변비",value:"constipation"},{label:"복통 (명치 또는 배꼽 주위)",value:"abdominal_pain"},{label:"속쓰림·위산 역류",value:"heartburn"},{label:"목에 뭔가 걸린 느낌 (인후이물감)",value:"throat_discomfort"},{label:"치통·구내염·잇몸 부종",value:"mouth_sore"}]},
+  { id:"dig_pattern", step:3, label:"세부 증상", title:"평소 위장 상태는 어떤가요?", multi:false,
+    condition:a=>a.main_system==="digestive",
+    options:[{label:"평소 소화력이 약하고 잘 체하는 편",value:"weak_digestion"},{label:"스트레스 받으면 소화가 안 됨",value:"stress_digestion"},{label:"과식·음주 후 급성 증상",value:"overeating"},{label:"만성적으로 반복됨",value:"chronic_gi"}]},
+  { id:"msk_detail", step:3, label:"세부 증상", title:"근골격 증상을 더 구체적으로 선택해주세요.", multi:false,
+    condition:a=>a.main_system==="musculoskeletal",
+    options:[{label:"급성 염좌·삐었을 때",value:"acute_sprain"},{label:"만성 요통·관절통",value:"chronic_pain"},{label:"목·어깨 뻣뻣함",value:"neck_stiffness"},{label:"전신 근육통·몸살",value:"body_ache"}]},
+  { id:"pain_type", step:3, label:"세부 증상", title:"통증 양상은 어떤가요?", multi:false,
+    condition:a=>a.main_system==="musculoskeletal",
+    options:[{label:"찬 곳에서 악화, 따뜻하면 호전",value:"cold_aggravated"},{label:"고정된 부위가 찌르듯 아픔",value:"stabbing"},{label:"붓고 열감이 있음",value:"hot_swollen"}]},
+  { id:"neuro_detail", step:3, label:"세부 증상", title:"신경/정신 증상을 더 구체적으로 선택해주세요.", multi:false,
+    condition:a=>a.main_system==="neuropsych",
+    options:[{label:"두통",value:"headache"},{label:"어지러움 (현훈)",value:"dizziness"},{label:"불면증",value:"insomnia"},{label:"불안·초조·가슴 답답",value:"anxiety"},{label:"우울감·의욕 저하",value:"depression"}]},
+  { id:"insomnia_type", step:3, label:"세부 증상", title:"불면 증상의 양상은?", multi:false,
+    condition:a=>a.main_system==="neuropsych"&&a.neuro_detail==="insomnia",
+    options:[{label:"잠들기가 어렵다 (입면 장애)",value:"insomnia_difficulty"},{label:"잠은 들지만 자주 깬다 / 꿈이 많다",value:"insomnia_waking"}]},
+  { id:"uro_detail", step:3, label:"세부 증상", title:"비뇨생식기 증상을 선택해주세요.", multi:false,
+    condition:a=>a.main_system==="urogenital",
+    options:[{label:"소변 볼 때 통증 / 빈뇨 / 잔뇨감",value:"dysuria"},{label:"월경통·월경불순",value:"menstrual"},{label:"대하(냉)",value:"vaginal_discharge"}]},
+  { id:"skin_detail", step:3, label:"세부 증상", title:"피부 증상을 선택해주세요.", multi:false,
+    condition:a=>a.main_system==="skin",
+    options:[{label:"여드름·피부 발진",value:"acne_rash"},{label:"피부 종기·부스럼",value:"boil"},{label:"피부 가려움·습진",value:"eczema"}]},
+  { id:"gyn_detail", step:3, label:"세부 증상", title:"산부인과 관련 증상을 선택해주세요.", multi:false,
+    condition:a=>a.main_system==="gynecology",
+    options:[{label:"임신 중 감기·두통",value:"pregnancy_cold"},{label:"임신 중 구토 (입덧)",value:"pregnancy_nausea"},{label:"임신 안정 필요 (유산 우려)",value:"pregnancy_stability"},{label:"산후 허약·피로",value:"postpartum"}]},
+  { id:"general_detail", step:3, label:"세부 증상", title:"전신 증상을 더 구체적으로 선택해주세요.", multi:false,
+    condition:a=>a.main_system==="general",
+    options:[{label:"만성 피로·기력저하",value:"fatigue"},{label:"식은땀(도한)이 심함",value:"night_sweats"},{label:"여름 더위 후 무기력",value:"summer_heat"},{label:"미열이 지속됨",value:"low_grade_fever"},{label:"갱년기 증상 (안면홍조, 감정기복, 발한)",value:"menopause"}]},
+  { id:"temperature", step:4, label:"체질 문진", title:"평소 체온 느낌은 어떠세요?",
+    hint:"한열(寒熱) 감별은 처방 분류의 핵심 기준입니다.", multi:false,
+    options:[{label:"추위를 많이 탐 (수족냉증 있음)",value:"cold"},{label:"열이 많고 더위를 못 참음",value:"heat"},{label:"보통 (특별히 춥거나 덥지 않음)",value:"neutral"}]},
+  { id:"strength", step:4, label:"체질 문진", title:"기력/체력 상태는 어떤가요?",
+    hint:"허실(虛實) 감별: 보약과 사약을 구분하는 기준입니다.", multi:false,
+    options:[{label:"기운 없고 쉽게 피로함",value:"deficiency"},{label:"기력은 괜찮으나 증상이 불편",value:"excess"},{label:"평소는 괜찮은데 최근 갑자기 안 좋아짐",value:"recent"}]},
+  { id:"stool", step:4, label:"체질 문진", title:"대변 상태는 어떤가요?", multi:false,
+    options:[{label:"설사 또는 무른 변",value:"loose"},{label:"정상",value:"normal"},{label:"변비 경향",value:"constipated"},{label:"설사와 변비가 번갈아 나타남",value:"alternating"}]},
+  { id:"appetite", step:4, label:"체질 문진", title:"식욕과 갈증은 어떤가요?", multi:false,
+    options:[{label:"식욕 없고 물도 잘 안 마심",value:"poor_no_thirst"},{label:"식욕은 있으나 먹으면 불편",value:"eat_discomfort"},{label:"식욕 왕성하고 찬 물을 많이 마심",value:"hungry_thirsty"},{label:"보통",value:"normal"}]},
+  { id:"sleep", step:4, label:"체질 문진", title:"수면 상태는 어떤가요?", multi:false,
+    options:[{label:"잠들기 어려움",value:"difficulty_falling"},{label:"쉽게 깸 / 꿈이 많음",value:"easy_waking"},{label:"수면 문제 없음",value:"normal"}]},
+  { id:"accompanying", step:5, label:"동반 증상", title:"해당되는 동반 증상을 모두 선택해주세요.", multi:true,
+    options:[
+      {label:"가래가 많다",value:"phlegm"},{label:"가슴이 답답하거나 두근거린다",value:"palpitation"},
+      {label:"입이 마르거나 쓰다",value:"dry_mouth"},{label:"눈이 충혈되거나 뻑뻑하다",value:"eye_red"},
+      {label:"식은땀이 난다",value:"night_sweats"},{label:"손발이 차다",value:"cold_hands_feet"},
+      {label:"소변이 진하다 / 자주 마렵다",value:"dark_urine"},{label:"부종(붓기)이 있다",value:"edema"},
+      {label:"피부 발진·가려움이 있다",value:"skin_rash"},{label:"월경 관련 문제가 있다",value:"menstrual_issue"},
+      {label:"특별한 동반 증상 없음",value:"none"}
+    ]},
+  { id:"onset", step:6, label:"발병 경과", title:"증상이 시작된 시기는?", multi:false,
+    options:[{label:"1~3일 이내 (급성)",value:"acute"},{label:"1~2주 전",value:"subacute"},{label:"한 달 이상 (만성)",value:"chronic"}]},
+  { id:"aggravating", step:6, label:"발병 경과", title:"증상이 악화되는 요인이 있나요?", multi:false,
+    options:[{label:"찬 바람·추위에 악화",value:"cold_wind"},{label:"더위·열에 악화",value:"heat"},{label:"스트레스·정서적 요인에 악화",value:"stress"},{label:"과식·음주 후 악화",value:"overeating"},{label:"특별한 악화 요인 없음",value:"none"}]}
+];
+
+// ==========================================
+// 점수 계산 엔진
+// ==========================================
+function calculateScores(answers) {
+  const scores = PRESCRIPTIONS.map(rx => {
+    let score = rx.score_boost || 0;
+    const reasons = [];
+    if (answers.pregnancy==="yes") {
+      if (rx.special==="pregnancy") { score+=20; reasons.push("임산부 적용 처방"); }
+      else {
+        const risky=["갈근탕","갈근해기탕","대청룡탕","구미강활탕","소청룡탕","대황목단피탕","도인승기탕","조위승기탕","대시호탕","오적산"];
+        if(risky.includes(rx.name)) score-=15;
+      }
+    }
+    if(answers.age==="child"&&rx.special==="pediatric"){score+=10;reasons.push("소아 적합");}
+    if(answers.main_system){
+      const m={"respiratory":"respiratory","digestive":"digestive","musculoskeletal":"musculoskeletal","neuropsych":"neuropsych","urogenital":"urinary","skin":"skin","gynecology":"gynecology","general":"general"};
+      const t=m[answers.main_system];
+      if(t&&rx.systems.includes(t)){score+=10;reasons.push("주증상 계통 일치");}
+      else if(answers.main_system==="urogenital"&&rx.systems.includes("gynecology"))score+=5;
+    }
+    ["resp_detail","cold_type","dig_detail","neuro_detail","insomnia_type","uro_detail","skin_detail","gyn_detail","general_detail","msk_detail"].forEach(k=>{
+      if(answers[k]&&rx.symptoms.includes(answers[k])){score+=8;reasons.push("세부 증상 일치");}
+    });
+    if(answers.cold_type){
+      if(answers.cold_type==="chills_no_sweat"&&rx.symptoms.includes("chills_no_sweat"))score+=6;
+      if(answers.cold_type==="chills_with_sweat"&&rx.symptoms.includes("chills_with_sweat"))score+=6;
+      if(answers.cold_type==="fever_sore_throat"&&rx.symptoms.includes("fever_sore_throat"))score+=6;
+      if(answers.cold_type==="fever_sore_throat"&&rx.symptoms.includes("sore_throat"))score+=4;
+      if(answers.cold_type==="lingering"&&rx.symptoms.includes("lingering_cold"))score+=6;
+    }
+    if(answers.dig_pattern){
+      if(answers.dig_pattern==="weak_digestion"&&rx.symptoms.includes("poor_appetite"))score+=5;
+      if(answers.dig_pattern==="stress_digestion"&&rx.symptoms.includes("epigastric"))score+=5;
+      if(answers.dig_pattern==="overeating"&&rx.symptoms.includes("overeating"))score+=5;
+      if(answers.dig_pattern==="chronic_gi"&&rx.onset.includes("chronic"))score+=3;
+    }
+    if(answers.pain_type){
+      if(answers.pain_type==="cold_aggravated"&&rx.temperature==="cold")score+=5;
+      if(answers.pain_type==="stabbing"&&rx.symptoms.includes("blood_stasis"))score+=6;
+      if(answers.pain_type==="hot_swollen"&&rx.temperature==="heat")score+=5;
+    }
+    if(answers.temperature&&answers.temperature!=="neutral"){
+      if(rx.temperature===answers.temperature){score+=5;reasons.push("한열 변증 일치");}
+      else if(rx.temperature!=="neutral"&&rx.temperature!==answers.temperature)score-=3;
+    }
+    if(answers.strength){
+      const sm={"deficiency":"deficiency","excess":"excess","recent":"neutral"};
+      const ps=sm[answers.strength];
+      if(ps&&rx.strength===ps){score+=4;reasons.push("허실 변증 일치");}
+      else if(ps&&rx.strength!=="neutral"&&rx.strength!==ps)score-=2;
+    }
+    if(answers.stool==="loose"){if(rx.symptoms.includes("diarrhea"))score+=3;if(rx.symptoms.includes("constipation"))score-=2;}
+    else if(answers.stool==="constipated"){if(rx.symptoms.includes("constipation"))score+=3;if(rx.symptoms.includes("diarrhea"))score-=2;}
+    else if(answers.stool==="alternating"){if(rx.symptoms.includes("diarrhea_constipation"))score+=4;}
+    if(answers.appetite==="poor_no_thirst"){if(rx.temperature==="cold"&&rx.strength==="deficiency")score+=3;if(rx.symptoms.includes("poor_appetite"))score+=2;}
+    else if(answers.appetite==="hungry_thirsty"){if(rx.temperature==="heat")score+=3;}
+    else if(answers.appetite==="eat_discomfort"){if(rx.symptoms.includes("indigestion")||rx.symptoms.includes("epigastric"))score+=2;}
+    if(answers.sleep==="difficulty_falling"&&rx.symptoms.includes("insomnia_difficulty"))score+=4;
+    if(answers.sleep==="easy_waking"&&rx.symptoms.includes("insomnia_waking"))score+=4;
+    if(answers.accompanying&&Array.isArray(answers.accompanying)){
+      answers.accompanying.forEach(a=>{if(a!=="none"&&rx.accompanying.includes(a))score+=2;});
+    }
+    if(answers.onset&&rx.onset.includes(answers.onset)){score+=3;reasons.push("발병 시기 부합");}
+    if(answers.aggravating&&answers.aggravating!=="none"&&rx.aggravating.includes(answers.aggravating)){score+=4;reasons.push("악화 요인 일치");}
+    if(answers.msk_detail==="body_ache"&&rx.symptoms.includes("body_ache"))score+=5;
+    if(answers.msk_detail==="neck_stiffness"&&rx.symptoms.includes("neck_stiffness")){score+=6;reasons.push("항강/어깨결림 일치");}
+    if(answers.neuro_detail==="insomnia"&&(rx.symptoms.includes("insomnia_difficulty")||rx.symptoms.includes("insomnia_waking")))score+=6;
+    // MFDS 적응증 기반: 오적산 - 냉증에 의한 통증 (냉증+근골격통 조합)
+    if(rx.name==="오적산"&&answers.pain_type==="cold_aggravated")score+=5;
+    // MFDS 적응증 기반: 갈근탕 - 어깨결림, 근육통, 상지신경통
+    if(rx.name==="갈근탕"&&answers.msk_detail==="neck_stiffness")score+=4;
+    // MFDS 적응증 기반: 가미소요산 - 갱년기장애
+    if(rx.name==="가미소요산"&&answers.general_detail==="menopause")score+=8;
+    // MFDS 적응증 기반: 반하사심탕 - 속쓰림, 위산역류
+    if(rx.name==="반하사심탕"&&answers.dig_detail==="heartburn")score+=6;
+    // MFDS 적응증 기반: 소청룡탕 - 묽은 가래가 많은 기침, 비염
+    if(rx.name==="소청룡탕"&&answers.resp_detail==="nasal")score+=4;
+    return {rx,score,reasons:[...new Set(reasons)]};
+  });
+  return scores.filter(s=>s.score>0).sort((a,b)=>b.score-a.score).slice(0,3);
+}
+
+// ==========================================
+// UI
+// ==========================================
+const app=document.getElementById("app");
+let ci=0, ans={}, vis=[];
+const totalSteps=6;
+
+function getVis(){return STEPS.filter(q=>!q.condition||q.condition(ans));}
+
+function renderIntro(){
+  app.innerHTML=`
+    <div class="card intro">
+      <span class="intro-icon">&#x1F33F;</span>
+      <h2>증상에 맞는 보험한약을<br>찾아드립니다</h2>
+      <p>몇 가지 질문에 답하시면,</p>
+      <p>건강보험 적용 한약 56종 중에서</p>
+      <p>적합한 처방을 추천해드립니다.</p>
+      <span class="time-badge">약 2~3분 소요</span>
+      <button class="start-btn" onclick="startQuiz()">문진 시작하기</button>
+    </div>
+    <div class="disclaimer">
+      <strong>안내</strong>&nbsp; 이 도구는 참고용이며, 실제 진료를 대체하지 않습니다.
+      정확한 진단과 처방은 반드시 한의사와 상담하세요.
+    </div>
+    <div class="references">
+      <details>
+        <summary>근거 자료 보기</summary>
+        <ol>
+          <li><strong>보건복지부 고시 제2009-214호</strong> 별첨1 &mdash; 건강보험용 한약제제 기준처방별 적응증(효능·효과) 및 용량·용법<br>
+            <a href="https://www.mohw.go.kr/board.es?mid=a10409020000&bid=0026&act=view&list_no=1481950" target="_blank">보건복지부 원문</a></li>
+          <li><strong>한약제제 급여목록 및 상한금액표</strong> (보건복지부고시 제2024-93호, 최신 개정)<br>
+            <a href="https://www.law.go.kr/admRulLsInfoP.do?admRulSeq=2100000092871" target="_blank">국가법령정보센터</a></li>
+          <li><strong>식품의약품안전처 의약품안전나라</strong> &mdash; 한약(생약)제제 품목허가 정보 및 효능·효과 원문<br>
+            <a href="https://nedrug.mfds.go.kr" target="_blank">nedrug.mfds.go.kr</a></li>
+          <li>임동우, 안정윤, 유가람, 김재은, 박원환. <strong>적응증의 KCD8 상병코드 분석 결과를 기반으로 한 보험한약제제의 질병 대분류 분포 분석과 사용 빈도 연구.</strong> 대한한의학회지. 2023;44(1):1-15.<br>
+            DOI: <a href="https://doi.org/10.13048/jkm.23001" target="_blank">10.13048/jkm.23001</a></li>
+          <li>김철, 신현규(한국한의학연구원). <strong>건강보험 급여 한약제제 56종 처방의 계량적 문헌 근거 현황 분석.</strong> 대한한의학회지. 2023;44(3):189-200.<br>
+            DOI: <a href="https://doi.org/10.13048/jkm.23041" target="_blank">10.13048/jkm.23041</a></li>
+          <li>Kim H, Lee M, Kim J, Cho J. <strong>General Prescription Pattern of Insured Herbal Preparation in South Korea: A Nationwide Cohort Study.</strong> J Korean Med. 2024;45(3):14-30.<br>
+            DOI: <a href="https://doi.org/10.13048/jkm.24034" target="_blank">10.13048/jkm.24034</a></li>
+          <li>현민경, 임병묵. <strong>한·일 보험한약제제 급여체계 비교분석.</strong> 대한한의학회지. 2022;43(4):45-62.<br>
+            DOI: <a href="https://doi.org/10.13048/jkm.22038" target="_blank">10.13048/jkm.22038</a></li>
+          <li>임병묵. <strong>건강보험 한약제제의 현황과 과제.</strong> 대한한의학회지. 2013;34(2):1-12.<br>
+            DOI: <a href="https://doi.org/10.13048/jkm.13014" target="_blank">10.13048/jkm.13014</a></li>
+          <li>Shin S et al. <strong>Development of Clinical Practice Guidelines for Korean Medicine.</strong> Integr Med Res. 2023;12(1):100924.<br>
+            DOI: <a href="https://doi.org/10.1016/j.imr.2023.100924" target="_blank">10.1016/j.imr.2023.100924</a> &middot; PMC: <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9971282/" target="_blank">PMC9971282</a></li>
+          <li><strong>국가한의임상정보포털(NCKM)</strong> &mdash; 한의표준임상진료지침 (한국한의약진흥원 운영)<br>
+            <a href="https://nikom.or.kr/nckm/module/practiceGuide/index.do?menu_idx=14" target="_blank">nikom.or.kr/nckm</a></li>
+          <li><strong>건강보험심사평가원</strong> &mdash; 요양급여의 적용기준 및 방법에 관한 세부사항 (약제) 2024년 7월판<br>
+            <a href="https://repository.hira.or.kr/handle/2019.oak/3277" target="_blank">HIRA Repository</a></li>
+          <li>이준우. <strong>보험한약입문.</strong> 서울: 도서출판 정담, 2016.</li>
+          <li>전국한의과대학 방제학 교수 공편저. <strong>한의방제학.</strong> 서울: 군자출판사, 2023.</li>
+          <li>전국한의과대학 본초학 교수 공편저. <strong>본초학.</strong> 서울: 영림사, 2020.</li>
+        </ol>
+      </details>
+    </div>`;
+}
+
+function startQuiz(){ci=0;ans={};vis=getVis();renderQ();}
+
+function renderQ(){
+  vis=getVis();
+  if(ci>=vis.length){renderResults();return;}
+  const q=vis[ci],s=q.step,pct=(ci/vis.length)*100;
+  const cv=ans[q.id],isM=q.multi;
+  const dots=Array.from({length:totalSteps},(_,i)=>{
+    const cls=i+1<s?'done':i+1===s?'active':'';
+    return `<div class="progress-dot ${cls}"></div>`;
+  }).join('');
+  const opts=q.options.map(o=>{
+    let sel=isM?(Array.isArray(cv)&&cv.includes(o.value)):cv===o.value;
+    return `<button class="opt ${isM?'multi':''} ${sel?'selected':''}" onclick="sel('${q.id}','${o.value}',${isM})"><span class="opt-radio"></span><span>${o.label}</span></button>`;
+  }).join('');
+  const hint=q.hint?`<p class="question-hint">${q.hint}</p>`:'';
+  const canNext=isM?(Array.isArray(cv)&&cv.length>0):cv!==undefined;
+  app.innerHTML=`
+    <div class="progress-wrap">${dots}</div>
+    <div class="progress-info">
+      <span class="progress-step">STEP ${s}</span>
+      <span class="progress-label">${q.label}</span>
+    </div>
+    <div class="card">
+      <h2 class="question-title">${q.title}</h2>
+      ${hint}
+      <div class="options">${opts}</div>
+    </div>
+    <div class="nav-bar">
+      <button class="nav-btn btn-back" onclick="back()" ${ci===0?'disabled':''}>이전</button>
+      <button class="nav-btn btn-next" onclick="next()" ${!canNext?'disabled':''}>${ci>=vis.length-1?'결과 보기':'다음'}</button>
+    </div>`;
+}
+
+function sel(id,v,m){
+  if(m){
+    if(!Array.isArray(ans[id]))ans[id]=[];
+    if(v==="none"){ans[id]=["none"];}
+    else{ans[id]=ans[id].filter(x=>x!=="none");const i=ans[id].indexOf(v);if(i>=0)ans[id].splice(i,1);else ans[id].push(v);}
+    renderQ();
+  }else{ans[id]=v;setTimeout(()=>next(),180);}
+}
+function back(){if(ci>0){ci--;vis=getVis();if(ci>=vis.length)ci=vis.length-1;renderQ();}}
+function next(){
+  const q=vis[ci],cv=ans[q.id],m=q.multi;
+  if(m?!(Array.isArray(cv)&&cv.length>0):cv===undefined)return;
+  ci++;vis=getVis();renderQ();
+}
+
+function renderResults(){
+  const res=calculateScores(ans);
+  if(!res.length){
+    app.innerHTML=`<div class="card" style="text-align:center;padding:40px 20px"><h2 style="margin-bottom:16px">추천 결과</h2><p style="color:var(--text-muted)">입력하신 조건에 맞는 처방을 찾지 못했습니다.<br>한의사와 상담하여 정확한 진단을 받으시길 권합니다.</p></div><button class="restart-btn" onclick="renderIntro()">처음부터 다시하기</button>`;
+    return;
+  }
+  const sn={"respiratory":"호흡기","digestive":"소화기","musculoskeletal":"근골격계","neuropsych":"신경/정신","urogenital":"비뇨생식기","skin":"피부","gynecology":"산부인과","general":"전신"};
+  const tn={"cold":"한증(寒證)","heat":"열증(熱證)","neutral":"중간"};
+  const strn={"deficiency":"허증(虛證)","excess":"실증(實證)","recent":"최근 발생"};
+  const on={"acute":"급성","subacute":"아급성","chronic":"만성"};
+  const maxScore=res[0].score;
+  let sum=`<div class="summary">`;
+  if(ans.main_system)sum+=`<div class="summary-row"><dt>주증상</dt> <dd>${sn[ans.main_system]||ans.main_system}</dd></div>`;
+  if(ans.temperature)sum+=`<div class="summary-row"><dt>한열</dt> <dd>${tn[ans.temperature]||ans.temperature}</dd></div>`;
+  if(ans.strength)sum+=`<div class="summary-row"><dt>허실</dt> <dd>${strn[ans.strength]||ans.strength}</dd></div>`;
+  if(ans.onset)sum+=`<div class="summary-row"><dt>발병</dt> <dd>${on[ans.onset]||ans.onset}</dd></div>`;
+  sum+=`</div>`;
+
+  const cards=res.map((r,i)=>{
+    const stopped=r.rx.stopped?`<span class="production-stopped">생산중단</span>`:'';
+    const tags=r.rx.tags.map(t=>`<span class="tag">${t}</span>`).join('');
+    const pct=Math.round((r.score/maxScore)*100);
+    const badges=['rank-1-badge','rank-2-badge','rank-3-badge'];
+    return `<div class="result-card rank-${i+1}">
+      <div class="result-header">
+        <span class="result-rank ${badges[i]}">${i+1}</span>
+        <div><div class="result-name">${r.rx.name}${stopped}</div><div class="result-category">${r.rx.category}</div></div>
+      </div>
+      <div class="result-desc">${r.rx.desc}</div>
+      <div class="result-tags">${tags}</div>
+      <div class="result-score">매칭도 <div class="score-bar"><div class="score-fill" style="width:${pct}%"></div></div> ${r.score}점</div>
+    </div>`;
+  }).join('');
+
+  const dots=Array.from({length:totalSteps},()=>'<div class="progress-dot done"></div>').join('');
+  app.innerHTML=`
+    <div class="progress-wrap">${dots}</div>
+    <div class="progress-info"><span class="progress-step">완료</span><span class="progress-label">추천 결과</span></div>
+    ${sum}
+    <div class="section-title">추천 처방 TOP ${res.length}</div>
+    ${cards}
+    <div class="disclaimer">
+      <strong>주의</strong>&nbsp; 이 결과는 알고리즘 기반 참고 자료이며, 실제 처방은 반드시 한의사의 진단을 거쳐야 합니다.
+      처방의 적응증, 용법·용량, 금기사항은 한의사와 상담하세요.
+    </div>
+    <div class="references">
+      <details>
+        <summary>근거 자료 보기</summary>
+        <ol>
+          <li><strong>보건복지부 고시 제2009-214호</strong> 별첨1 &mdash; 건강보험용 한약제제 기준처방별 적응증(효능·효과) 및 용량·용법<br>
+            <a href="https://www.mohw.go.kr/board.es?mid=a10409020000&bid=0026&act=view&list_no=1481950" target="_blank">보건복지부 원문</a></li>
+          <li><strong>한약제제 급여목록 및 상한금액표</strong> (보건복지부고시 제2024-93호, 최신 개정)<br>
+            <a href="https://www.law.go.kr/admRulLsInfoP.do?admRulSeq=2100000092871" target="_blank">국가법령정보센터</a></li>
+          <li><strong>식품의약품안전처 의약품안전나라</strong> &mdash; 한약(생약)제제 품목허가 정보 및 효능·효과 원문<br>
+            <a href="https://nedrug.mfds.go.kr" target="_blank">nedrug.mfds.go.kr</a></li>
+          <li>임동우 외. <strong>보험한약제제의 질병 대분류 분포 분석과 사용 빈도 연구.</strong> 대한한의학회지. 2023;44(1):1-15.<br>
+            DOI: <a href="https://doi.org/10.13048/jkm.23001" target="_blank">10.13048/jkm.23001</a></li>
+          <li>김철, 신현규. <strong>건강보험 급여 한약제제 56종 처방의 계량적 문헌 근거 현황 분석.</strong> 대한한의학회지. 2023;44(3):189-200.<br>
+            DOI: <a href="https://doi.org/10.13048/jkm.23041" target="_blank">10.13048/jkm.23041</a></li>
+          <li>Kim H et al. <strong>General Prescription Pattern of Insured Herbal Preparation in South Korea.</strong> J Korean Med. 2024;45(3):14-30.<br>
+            DOI: <a href="https://doi.org/10.13048/jkm.24034" target="_blank">10.13048/jkm.24034</a></li>
+          <li>현민경, 임병묵. <strong>한·일 보험한약제제 급여체계 비교분석.</strong> 대한한의학회지. 2022;43(4):45-62.<br>
+            DOI: <a href="https://doi.org/10.13048/jkm.22038" target="_blank">10.13048/jkm.22038</a></li>
+          <li>임병묵. <strong>건강보험 한약제제의 현황과 과제.</strong> 대한한의학회지. 2013;34(2):1-12.<br>
+            DOI: <a href="https://doi.org/10.13048/jkm.13014" target="_blank">10.13048/jkm.13014</a></li>
+          <li>Shin S et al. <strong>Development of Clinical Practice Guidelines for Korean Medicine.</strong> Integr Med Res. 2023;12(1):100924.<br>
+            DOI: <a href="https://doi.org/10.1016/j.imr.2023.100924" target="_blank">10.1016/j.imr.2023.100924</a> &middot; PMC: <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9971282/" target="_blank">PMC9971282</a></li>
+          <li><strong>국가한의임상정보포털(NCKM)</strong> &mdash; 한의표준임상진료지침<br>
+            <a href="https://nikom.or.kr/nckm/module/practiceGuide/index.do?menu_idx=14" target="_blank">nikom.or.kr/nckm</a></li>
+          <li><strong>건강보험심사평가원</strong> &mdash; 요양급여 적용기준 세부사항(약제) 2024년판<br>
+            <a href="https://repository.hira.or.kr/handle/2019.oak/3277" target="_blank">HIRA Repository</a></li>
+          <li>이준우. <strong>보험한약입문.</strong> 서울: 도서출판 정담, 2016.</li>
+          <li>전국한의과대학 방제학 교수 공편저. <strong>한의방제학.</strong> 서울: 군자출판사, 2023.</li>
+          <li>전국한의과대학 본초학 교수 공편저. <strong>본초학.</strong> 서울: 영림사, 2020.</li>
+        </ol>
+      </details>
+    </div>
+    <button class="restart-btn" onclick="renderIntro()">처음부터 다시하기</button>`;
+}
+
+renderIntro();
+</script>
+</body>
+</html>
